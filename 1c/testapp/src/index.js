@@ -74,7 +74,8 @@ const App = () => {
   }
   */
 
-  //third object spread
+  //third , object spread
+  /*
   const [click, setClick] = useState({ left:0, right:0})
 
   const leftClick = () => {
@@ -92,6 +93,29 @@ const App = () => {
     }
     setClick(newClick)
   }
+ */
+  //fourth, handling Arrays
+
+  const [click, setClick] = useState({ left:0, right:0})
+  const [allClicks, setAll] = useState([])
+
+  const leftClick = () => {
+    const newClick = {
+      ...click,  //object spread
+      left: click.left + 1
+    }
+    setClick(newClick)
+    setAll(allClicks.concat('L'))
+  }
+
+  const rightClick = () => {
+    const newClick = {
+      ...click,   //object spread
+      right: click.right + 1
+    }
+    setClick(newClick)
+    setAll(allClicks.concat('R'))
+  }
 
 
   return (
@@ -100,6 +124,7 @@ const App = () => {
       <Button handleClick={leftClick} text='left' />
       <Button handleClick={rightClick} text='right' />
       <Display counter={click.right} />
+      <p>{allClicks.join('')}</p>
     </div>
   )
 
