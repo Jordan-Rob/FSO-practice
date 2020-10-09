@@ -52,6 +52,7 @@ const App = () => {
   */
 
   //second
+  /*
   const [click, setClick] = useState({ left:0, right:0})
 
 
@@ -67,6 +68,26 @@ const App = () => {
   const rightClick = () => {
     const newClick = {
       left: click.left,
+      right: click.right + 1
+    }
+    setClick(newClick)
+  }
+  */
+
+  //third object spread
+  const [click, setClick] = useState({ left:0, right:0})
+
+  const leftClick = () => {
+    const newClick = {
+      ...click,  //object spread
+      left: click.left + 1
+    }
+    setClick(newClick)
+  }
+
+  const rightClick = () => {
+    const newClick = {
+      ...click,   //object spread
       right: click.right + 1
     }
     setClick(newClick)
