@@ -117,6 +117,24 @@ const App = () => {
     setAll(allClicks.concat('R'))
   }
 
+  //History component Conditional Rendering
+
+  const History = (props) =>{
+    if (props.allClicks.length === 0){
+      return(
+        <div>
+          <p>the app is used by pressing the buttons</p>
+        </div>
+      )
+    }
+
+    return(
+      <div>
+        button press history: {props.allClicks.join('')}
+      </div>
+    )
+  }
+
 
   return (
     <div>
@@ -124,7 +142,7 @@ const App = () => {
       <Button handleClick={leftClick} text='left' />
       <Button handleClick={rightClick} text='right' />
       <Display counter={click.right} />
-      <p>{allClicks.join('')}</p>
+      <History allClicks={allClicks} />
     </div>
   )
 
