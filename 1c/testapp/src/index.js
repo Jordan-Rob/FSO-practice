@@ -37,13 +37,39 @@ const App = () => {
 */
 
 
-
 // 2. COMPLEX STATE IMPLEMENTATION  first iteration
 const Display = ({counter}) => <div><p> {counter} </p></div>
 const Button = ({handleClick, text}) => <div><button onClick={handleClick} >{text}</button></div>
 
 
 const App = () => {
+
+  //********HigherOrder functions practice********
+  const kids = [
+    {name:'jason', age:13, allowance:2300},
+    {name:'Mary', age:13, allowance:3400},
+    {name:'Son', age:17, allowance:10500},
+    {name:'Kris', age:14, allowance:5300},
+    {name:'Kelly', age:17, allowance:9900},
+    {name:'Mason', age:15, allowance:6400},
+    {name:'Jenny', age:11, allowance:3500},
+  ]
+  
+  const is13 = (kids)=> kids.age === 13
+  
+  const thirteen = kids.filter(is13)
+  const namesonly = kids.map((kid)=> kid.name) 
+  const ageOnly = kids.map((kid)=>kid.age)
+  console.log(namesonly)
+  console.log(ageOnly)
+
+  const allowancesSum = kids.reduce((sum, kid) => {
+    return sum + kid.allowance
+  }, 0)
+
+  console.log(allowancesSum)
+
+  //*********END OF HIGHER ORDER FUNCS PRACTICE*********
   
   //first 
   /* 
