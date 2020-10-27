@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
+import Note from './components/Note';
 import * as serviceWorker from './serviceWorker';
 
 
@@ -41,7 +42,7 @@ const App = () => {
 const Display = ({counter}) => <div><p> {counter} </p></div>
 const Button = ({handleClick, text}) => <div><button onClick={handleClick} >{text}</button></div>
 
-
+/*
 const App = () => {
 
   //********HigherOrder functions practice********
@@ -101,6 +102,7 @@ const App = () => {
   */
 
   //third , object spread
+
   /*
   const [click, setClick] = useState({ left:0, right:0})
 
@@ -121,7 +123,7 @@ const App = () => {
   }
  */
   //fourth, handling Arrays
-
+  /*
   const [click, setClick] = useState({ left:0, right:0})
   const [allClicks, setAll] = useState([])
 
@@ -173,7 +175,33 @@ const App = () => {
   )
 
 }
+*/
 
+/************Part2 Forms***************/
+const App = (props) => {
+  const [notes, setNotes] = useState(props.notes)
+
+  const addNote = (event) => {
+    event.preventDefault()
+    console.log('button clicked', event.target)
+  }
+
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note => 
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+      <form onSubmit={addNote}>
+        <input />
+        <button type="submit">save</button>
+      </form>   
+    </div>
+  )
+}
 
 
 
