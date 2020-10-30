@@ -180,6 +180,9 @@ const App = () => {
 /************Part2 Forms***************/
 const App = (props) => {
   const [notes, setNotes] = useState(props.notes)
+  const [newNote, setNewNote] = useState(
+    'a new note...'
+  ) 
 
   const addNote = (event) => {
     event.preventDefault()
@@ -192,11 +195,11 @@ const App = (props) => {
       <h1>Notes</h1>
       <ul>
         {notes.map(note => 
-          <Note key={note.id} note={note} />
+          <Note key={note.id} note={note.val} />
         )}
       </ul>
       <form onSubmit={addNote}>
-        <input />
+        <input value={newNote} />
         <button type="submit">save</button>
       </form>   
     </div>
@@ -204,10 +207,11 @@ const App = (props) => {
 }
 
 
+const notes = [{id:0, val:'foo'}, {id:1, val:'foobar'}, {id:2, val:'barfoo'}]
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App  notes={ notes } />
   </React.StrictMode>,
   document.getElementById('root')
 );
