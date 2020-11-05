@@ -188,13 +188,13 @@ const App = (props) => {
   const addNote = (event) => {
     event.preventDefault()
     const newObject = {
-      note:newNote,
+      val:newNote,
       date: new Date().toISOString(),
       important: Math.random() < 0.5,
       id:notes.length + 1
     }
 
-    setNewNote(notes.concat(newObject))
+    setNotes(notes.concat(newObject))
     setNewNote('')
 
   }
