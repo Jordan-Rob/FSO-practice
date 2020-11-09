@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import Note from './components/Note';
 import * as serviceWorker from './serviceWorker';
 
@@ -177,11 +178,32 @@ const App = () => {
 }
 */
 
+
+const promise = axios.get('http://localhost:3001/notes')
+promise.then(response => console.log(response.data))
+
+const promise2 = axios.get('http://localhost:3001/foobar')
+console.log(promise2)
+
 /************Part2 Forms***************/
-const App = (props) => {
-  const [notes, setNotes] = useState(props.notes)
+const App = () => {
+  const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
+
+  useEffect( () => {
+    console.log('Effect')
+
+    axios
+      .get('http://localhost:3001/notes')
+      .then( response => {
+        console.log('promise fulfilled')
+        setNotes(response.data)
+      })
+
+  }, [])
+
+
   
   const notesToShow = showAll ? notes:notes.filter(note => note.important === true)
   
@@ -215,7 +237,7 @@ const App = (props) => {
       </div>
       <ul>
         {notesToShow.map(note => 
-          <Note key={note.id} note={note.val} />
+          <Note key={note.id} note={note.content} />
         )}
       </ul>
       <form onSubmit={addNote}>
