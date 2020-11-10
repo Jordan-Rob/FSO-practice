@@ -210,14 +210,21 @@ const App = () => {
   const addNote = (event) => {
     event.preventDefault()
     const newObject = {
-      val:newNote,
-      date: new Date().toISOString(),
+      content:newNote,
+      date: new Date(),
       important: Math.random() < 0.5,
-      id:notes.length + 1
     }
 
-    setNotes(notes.concat(newObject))
-    setNewNote('')
+    axios
+      .post('http://localhost:3001/notes', newObject)
+      .then( response => {
+        setNotes(notes.concat(response.data))
+        setNewNote('')
+      })
+
+
+    //setNotes(notes.concat(newObject))
+    //setNewNote('')
 
   }
 
