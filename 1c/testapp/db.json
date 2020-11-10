@@ -4,7 +4,7 @@
       "id": 1,
       "content": "HTML is easy",
       "date": "2019-05-30T17:30:31.098Z",
-      "important": true
+      "important": false
     },
     {
       "id": 2,
@@ -33,7 +33,7 @@
     {
       "content": "Post is used to add data to a REST api",
       "date": "2020-11-10T16:12:44.052Z",
-      "important": true,
+      "important": false,
       "id": 6
     },
     {
