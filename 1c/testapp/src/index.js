@@ -221,11 +221,13 @@ const App = () => {
         setNotes(notes.concat(response.data))
         setNewNote('')
       })
-
-
     //setNotes(notes.concat(newObject))
     //setNewNote('')
 
+  }
+
+  const toggleImportanceOf = (id) => {
+    console.log('importance of ' + id + ' needs to be toggled')
   }
 
   const handleNoteChange = (event) =>{
@@ -243,8 +245,8 @@ const App = () => {
         </button>
       </div>
       <ul>
-        {notesToShow.map(note => 
-          <Note key={note.id} note={note.content} />
+        {notesToShow.map((note, i) => 
+          <Note key={i} note={note} toggleImportance={() => toggleImportanceOf(note.id)} />
         )}
       </ul>
       <form onSubmit={addNote}>
