@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Note from './components/Note';
 import noteService from './services/notes'
+import Notification from './components/Notification'
 import * as serviceWorker from './serviceWorker';
 import './index.css'
 
@@ -192,6 +193,7 @@ const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   useEffect( () => {
     console.log('Effect')
@@ -235,6 +237,15 @@ const App = () => {
       .then( response => {
         setNotes(notes.map( note => note.id !== id? note:response.data))
       })
+      .catch( error => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server `
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+          setNotes(notes.filter(n => n.id !== id))
+      })
   }
 
   const handleNoteChange = (event) =>{
@@ -246,6 +257,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all' }
