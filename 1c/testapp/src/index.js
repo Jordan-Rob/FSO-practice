@@ -4,6 +4,7 @@ import axios from 'axios';
 import Note from './components/Note';
 import noteService from './services/notes'
 import * as serviceWorker from './serviceWorker';
+import './index.css'
 
 
 //const Display = ({counter}) => <div><p>{counter}</p></div>
