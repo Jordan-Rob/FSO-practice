@@ -5,13 +5,13 @@ const userRouter = require('express').Router()
 userRouter.post('/', async(request, response) => {
     const body = request.body
 
-    noSalts = 10
-    passwordHash = await bcrypt.hash(body.passwordHash, noSalts)
+    const noSalts = 10
+    const passwordHash = await bcrypt.hash(body.password, noSalts)
 
     const user = new User({
         username:body.username,
         name:body.name,
-        passwordHash,
+        password:passwordHash,
     })
 
     const savedUser = await user.save()
