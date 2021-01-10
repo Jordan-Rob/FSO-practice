@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content":" relational dbs vs document dbs",
+    "important":true,
+    "userId":"5ffb343e8c3547053432dbbf"
+}
+

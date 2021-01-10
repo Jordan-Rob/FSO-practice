@@ -1,7 +1,8 @@
-PUT http://localhost:3001/api/notes/5fc26d4c498c7a1ad4d40315
+POST http://localhost:3001/api/users
 Content-Type: application/json
 
 {
-    "content": "fullstack DB to back n front",
-    "important":false
+    "username":"jayj",
+    "name":"jordi",
+    "password":"salainen"
 }
