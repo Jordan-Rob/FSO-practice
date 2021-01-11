@@ -1,9 +1,9 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpheWoiLCJpZCI6IjVmZmIzNDNlOGMzNTQ3MDUzNDMyZGJiZiIsImlhdCI6MTYxMDM3MDg5N30.jJTGFLgVAqNvFM21m_nXpVmN9SOdRGDsSNjP4Cl8P9w
 
 {
-    "content":" relational dbs vs document dbs",
-    "important":true,
-    "userId":"5ffb343e8c3547053432dbbf"
+    "content":" relational dbs vs document dbs in detail",
+    "important":true
 }
 
