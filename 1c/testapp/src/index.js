@@ -7,7 +7,7 @@ import loginService from './services/login'
 import Notification from './components/Notification'
 import * as serviceWorker from './serviceWorker';
 import './index.css'
-
+import LoginForm from './components/LoginForm'
 
 //const Display = ({counter}) => <div><p>{counter}</p></div>
   
@@ -291,29 +291,15 @@ const App = () => {
     }
   }
 
-  const loginForm = () => (
-    <form onSubmit = { handleLogin }>
-      <div>
-        username
-        <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password
-        <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">login</button>
-    </form>
-  )
+  const usernameChange = (event) => {
+    setUsername(event.target.value)
+  }
+  
+  const passwordChange = (event) => {
+    setPassword(event.target.value)
+  }
+  
+
 
   const noteForm = () => (
     <form onSubmit = { addNote }>
@@ -332,7 +318,7 @@ const App = () => {
 
       {
         user === null?
-          loginForm():
+          <LoginForm handleLogin={handleLogin} usernameChange={usernameChange} passwordChange={passwordChange} password={password} username={username}/>:
           <div>
             <p>{ user.name } is logged in</p>
             { noteForm() }
