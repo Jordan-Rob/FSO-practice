@@ -8,6 +8,7 @@ import Notification from './components/Notification'
 import * as serviceWorker from './serviceWorker';
 import './index.css'
 import LoginForm from './components/LoginForm'
+import Toggable from './components/Toggable'
 
 //const Display = ({counter}) => <div><p>{counter}</p></div>
   
@@ -199,7 +200,8 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [loginVisible, setLoginVisible] = useState(false)
+  
+
 
 
   useEffect( () => {
@@ -301,15 +303,10 @@ const App = () => {
   }
   
   const loginForm = () => {
-    const hideWhenVisible = { display: loginVisible? 'none': '' }
-    const showWhenVisible = { display: loginVisible? '':'none' }
-
+    
     return (
       <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>log in</button>
-        </div>
-        <div style={showWhenVisible}>
+        <Toggable buttonLabel='login'>
           <LoginForm
             username={username}
             password={password}
@@ -317,8 +314,7 @@ const App = () => {
             handlePasswordChange={({ target }) => setPassword(target.value)}
             handleSubmit={handleLogin}
           />
-          <button onClick={() => setLoginVisible(false)}>cancel</button>
-        </div>
+        </Toggable> 
       </div>
     )
   }
