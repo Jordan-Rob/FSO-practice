@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import './index.css'
 import LoginForm from './components/LoginForm'
 import Toggable from './components/Toggable'
+import NoteForm from './components/NoteForm'
 
 //const Display = ({counter}) => <div><p>{counter}</p></div>
   
@@ -193,7 +194,7 @@ console.log(promise2)
 /************Part2 Forms***************/
 const App = () => {
   const [notes, setNotes] = useState([])
-  const [newNote, setNewNote] = useState('')
+  //const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState('some error happened...')
   // part 5 additions
@@ -226,19 +227,11 @@ const App = () => {
   
   const notesToShow = showAll ? notes:notes.filter(note => note.important === true)
   
-  const addNote = (event) => {
-    event.preventDefault()
-    const newObject = {
-      content:newNote,
-      date: new Date(),
-      important: Math.random() < 0.5,
-    }
-
+  const addNote = (noteObject) => {
     noteService
-      .create(newObject)
+      .create(noteObject)
       .then( response => {
         setNotes(notes.concat(response.data))
-        setNewNote('')
       })
     //setNotes(notes.concat(newObject))
     //setNewNote('')
@@ -265,10 +258,6 @@ const App = () => {
       })
   }
 
-  const handleNoteChange = (event) =>{
-    console.log(event.target.value)
-    setNewNote(event.target.value)
-  }
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -294,13 +283,7 @@ const App = () => {
     }
   }
 
-  const usernameChange = (event) => {
-    setUsername(event.target.value)
-  }
   
-  const passwordChange = (event) => {
-    setPassword(event.target.value)
-  }
   
   const loginForm = () => {
     
@@ -320,12 +303,15 @@ const App = () => {
   }
 
 
-  const noteForm = () => (
-    <form onSubmit = { addNote }>
-      <input value={newNote} onChange={handleNoteChange} />
-      <button type="submit">save</button>
-    </form>  
-  )
+  const noteForm = () => {
+
+    return (
+      <Toggable buttonLabel='new Note'>
+        <NoteForm createNote={addNote}/>
+      </Toggable>
+    )
+  }
+  
 
   return (
     <div>
