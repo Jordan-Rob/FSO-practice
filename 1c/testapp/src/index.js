@@ -199,6 +199,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [loginVisible, setLoginVisible] = useState(false)
 
 
   useEffect( () => {
@@ -299,6 +300,28 @@ const App = () => {
     setPassword(event.target.value)
   }
   
+  const loginForm = () => {
+    const hideWhenVisible = { display: loginVisible? 'none': '' }
+    const showWhenVisible = { display: loginVisible? '':'none' }
+
+    return (
+      <div>
+        <div style={hideWhenVisible}>
+          <button onClick={() => setLoginVisible(true)}>log in</button>
+        </div>
+        <div style={showWhenVisible}>
+          <LoginForm
+            username={username}
+            password={password}
+            handleUsernameChange={({ target }) => setUsername(target.value)}
+            handlePasswordChange={({ target }) => setPassword(target.value)}
+            handleSubmit={handleLogin}
+          />
+          <button onClick={() => setLoginVisible(false)}>cancel</button>
+        </div>
+      </div>
+    )
+  }
 
 
   const noteForm = () => (
@@ -318,7 +341,7 @@ const App = () => {
 
       {
         user === null?
-          <LoginForm handleLogin={handleLogin} usernameChange={usernameChange} passwordChange={passwordChange} password={password} username={username}/>:
+          loginForm():
           <div>
             <p>{ user.name } is logged in</p>
             { noteForm() }
