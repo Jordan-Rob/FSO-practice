@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Note from './components/Note';
@@ -203,7 +203,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   
 
-
+  const noteFormRef = useRef()
 
   useEffect( () => {
     console.log('Effect')
@@ -228,6 +228,7 @@ const App = () => {
   const notesToShow = showAll ? notes:notes.filter(note => note.important === true)
   
   const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility()
     noteService
       .create(noteObject)
       .then( response => {
@@ -293,9 +294,9 @@ const App = () => {
           <LoginForm
             username={username}
             password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
+            usernameChange={({ target }) => setUsername(target.value)}
+            passwordChange={({ target }) => setPassword(target.value)}
+            handleLogin={handleLogin}
           />
         </Toggable> 
       </div>
@@ -306,7 +307,7 @@ const App = () => {
   const noteForm = () => {
 
     return (
-      <Toggable buttonLabel='new Note'>
+      <Toggable buttonLabel='new Note' ref={noteFormRef}>
         <NoteForm createNote={addNote}/>
       </Toggable>
     )
