@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import { prettyDOM } from '@testing-library/dom'
 import Note from './Note'
 
@@ -35,3 +35,21 @@ test('renders content', () => {
         'Component testing is done with react-testing-library'
     )
   })
+
+test('clicking the button calls the handler once', () => {
+    const note = {
+        content:'testin react apps',
+        important: false
+    }
+
+    const mockHandler = jest.fn()
+    
+    const component = render(
+        <Note note={note} toggleImportance={mockHandler} />
+    )
+
+    const button = component.getByText('make important')
+    fireEvent.click(button)
+    
+    expect(mockHandler.mock.calls).toHaveLength(1)
+})  
