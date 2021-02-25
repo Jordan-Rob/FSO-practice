@@ -1,4 +1,6 @@
 describe('Note app', function() {
+
+  
     beforeEach(function() {
       cy.request('POST', 'http://localhost:3001/api/testing/reset')
       const user = {
@@ -9,6 +11,7 @@ describe('Note app', function() {
       cy.request('POST', 'http://localhost:3001/api/users/', user) 
       cy.visit('http://localhost:3000')
     })
+    
 
     it('front page can be opened', function() {
       cy.contains('Notes') 
@@ -22,19 +25,34 @@ describe('Note app', function() {
         cy.contains('Jordan is logged in')
       })
 
-    describe('when logged in', function() {
+
+    it('login fails with wrong password', function() {
+        cy.contains('login').click()
+        cy.get('#username').type('jayd')
+        cy.get('#password').type('wrong')
+        cy.get('#login-button').click()
     
+        cy.get('.error')
+          .should('contain', 'Wrong Credentials')
+          .and('have.css', 'color', 'rgb(255, 0, 0)')
+          .and('have.css', 'border-style', 'solid')
+        
+        cy.get('html').should('not.contain', 'Jordan logged in')
+      })  
+
+    describe('when logged in', function() {
+     
       beforeEach(function() {
         cy.contains('login').click()
         cy.get('#username').type('jayj')
         cy.get('#password').type('salianen')
         cy.get('#login-button').click()
       })
-      
+     
       /*
       beforeEach(function() {
         cy.request('POST', 'http://localhost:3001/api/login', {
-          username: 'jayj', password: 'salianen'
+          username:'jayj', password:'salianen'
         }).then(response => {
           localStorage.setItem('loggedNoteappUser', JSON.stringify(response.body))
           cy.visit('http://localhost:3000')
@@ -67,18 +85,6 @@ describe('Note app', function() {
       })
     })  
 
-    it('login fails with wrong password', function() {
-      cy.contains('login').click()
-      cy.get('#username').type('jayd')
-      cy.get('#password').type('wrong')
-      cy.get('#login-button').click()
-  
-      cy.get('.error')
-        .should('contain', 'Wrong Credentials')
-        .and('have.css', 'color', 'rgb(255, 0, 0)')
-        .and('have.css', 'border-style', 'solid')
-      
-      cy.get('html').should('not.contain', 'Jordan logged in')
-    })
+    
 
   })
